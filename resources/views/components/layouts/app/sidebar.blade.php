@@ -12,8 +12,8 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                <flux:navlist.group :heading="__('سکوی توسعه')" class="grid">
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('داشبرد') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -32,7 +32,7 @@
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">
                 <flux:profile
-                    :name="auth()->user()->name"
+                    :name="auth()->user()->profile->f_name_fa . '، ' .auth()->user()->profile->l_name_fa"
                     :initials="auth()->user()->initials()"
                     icon-trailing="chevrons-up-down"
                 />
@@ -50,8 +50,8 @@
                                 </span>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                    <span class="truncate font-semibold">{{ auth()->user()->profile->f_name_fa }} {{__('، ')}} {{ auth()->user()->profile->l_name_fa }}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->profile->l_name_fa }}</span>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                            {{ __('Log Out') }}
+                            {{ __('خروج') }}
                         </flux:menu.item>
                     </form>
                 </flux:menu>
@@ -83,6 +83,7 @@
 
             <flux:dropdown position="top" align="end">
                 <flux:profile
+                    :name="auth()->user()->profile->f_name_fa . '، ' .auth()->user()->profile->l_name_fa"
                     :initials="auth()->user()->initials()"
                     icon-trailing="chevron-down"
                 />
@@ -100,8 +101,8 @@
                                 </span>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                    <span class="truncate font-semibold">{{ auth()->user()->profile->f_name_fa }} {{__('، ')}} {{ auth()->user()->profile->l_name_fa }}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->profile->l_name_fa }}</span>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +119,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                            {{ __('Log Out') }}
+                            {{ __('خروج') }}
                         </flux:menu.item>
                     </form>
                 </flux:menu>

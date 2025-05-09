@@ -28,10 +28,10 @@ class User extends Authenticatable
     }
     public function initials(): string
     {
-        return Str::of($this->name)
-            ->explode(' ')
+        return Str::of($this->profile->f_name_fa.'، '.$this->profile->l_name_fa)
+            ->explode('، ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
-            ->implode('');
+            ->implode(' ');
     }
 
     public function profile(): HasOne

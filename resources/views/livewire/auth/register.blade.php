@@ -76,8 +76,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
             return;
         }
         $this->modal('check_otp')->close();
-
         RateLimiter::clear('reg_ip_limit_' . Request::ip());
+
+
+        $mobile ['otp'] = null;
         $mobile ['verified'] = 1;
         $mobile ['updated'] = j_d_stamp_en();
         $mobile->save();
