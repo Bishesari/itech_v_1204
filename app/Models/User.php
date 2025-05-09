@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
+    public $timestamps = false;
     use HasFactory, Notifiable;
     protected $hidden = [
         'password',

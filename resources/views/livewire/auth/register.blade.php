@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Mobile;
+use App\Models\Profile;
 use App\Models\User;
 use App\Rules\NCode;
 use Illuminate\Auth\Events\Registered;
@@ -20,18 +21,22 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public int $ipRemainingTime = 0;
     public int $smsRemainingTime = 120;
 
+
+    public int $sd = 0;
+
     protected function rules(): array
     {
         return [
             'f_name_fa' => ['required', 'string', 'min:2'],
             'l_name_fa' => ['required', 'string', 'min:2'],
             'n_code' => ['required', 'digits:10', new NCode, Rule::unique('profiles', 'n_code')],
-            'mobile' => ['required', 'starts_with:09', 'digits:11']
+            'mobile_nu' => ['required', 'starts_with:09', 'digits:11']
         ];
     }
 
     public function send_otp(): void
     {
+        $this->validate();
         $ip = Request::ip();
         $key = 'ip_limit:' . $ip;
         $mobile_count = Mobile::where('mobile_nu', $this->mobile_nu)->count();
@@ -62,28 +67,45 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $this->modal('check_otp')->show();
     }
 
-    public function check_otp()
+    public function register(): void
     {
         $mobile = Mobile::where('mobile_nu', $this->mobile_nu)->first();
         if ($mobile ['otp'] != $this->u_otp) {
             $incorrect_otp_err = 'asdasdasd';
             return;
         }
-        if (time() - $mobile ['otp_sent_time'] <= 120) {
+        if ( (time() - $mobile ['otp_sent_time']) >= 120) {
             $otp_time_validation_error = 'asdasdasd';
             return;
         }
 
-        $user
+        RateLimiter::clear('ip_limit:' . Request::ip());
+        $mobile ['verified'] = 1;
+        $mobile ['updated'] = j_d_stamp_en();
+        $mobile->save();
 
-//        event(new Registered(($user = User::create($validated))));
+        $passw = simple_alpha_numeric_otp(8);
 
-//        Auth::login($user);
+        $user = new User();
+        $user ['user_name'] = $this->n_code;
+        $user ['password'] = $passw;
+        $user ['created'] = j_d_stamp_en();
+        $user->save();
+        event(new Registered($user));
 
-//        $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
+        $profile = new Profile();
+        $profile ['n_code'] = $this->n_code;
+        $profile ['f_name_fa'] = $this->f_name_fa;
+        $profile ['l_name_fa'] = $this->l_name_fa;
+        $profile ['created'] = j_d_stamp_en();
 
+        $profile->user()->associate($user);
+        $profile->save();
+
+        $user->mobiles()->attach($mobile['id'], ['created' => j_d_stamp_en()]);
+        Auth::login($user);
+        $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
     }
-
 }; ?>
 
 <div class="flex flex-col gap-6">
@@ -130,7 +152,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 <flux:heading size="lg">{{__('تایید شماره موبایل')}}</flux:heading>
                 <flux:text class="mt-2">{{__('کد پیامک شده به ')}} {{$mobile_nu}} {{__(' را وارد نمایید.')}}</flux:text>
             </div>
-            <form wire:submit="check_otp" class="flex flex-col gap-6">
+            <form wire:submit="register" class="flex flex-col gap-6">
                 <flux:input wire:model="u_otp" :label="__('کد پیامکی')" type="text" class:input="text-center"
                             style="direction:ltr" maxlength="6" required autofocus/>
                 <div class="flex">

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('mobile_id');
+            $table->char('created', 19);
+            $table->char('updated', 19)->nullable();
             $table->timestamps();
         });
     }
