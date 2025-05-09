@@ -1,8 +1,13 @@
 <?php
 
 use App\Models\Mobile;
+use App\Models\User;
+use App\Rules\NCode;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
@@ -11,8 +16,19 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public string $l_name_fa = '';
     public string $n_code = '';
     public string $mobile_nu = '';
+    public string $u_otp = '';
     public int $ipRemainingTime = 0;
     public int $smsRemainingTime = 120;
+
+    protected function rules(): array
+    {
+        return [
+            'f_name_fa' => ['required', 'string', 'min:2'],
+            'l_name_fa' => ['required', 'string', 'min:2'],
+            'n_code' => ['required', 'digits:10', new NCode, Rule::unique('profiles', 'n_code')],
+            'mobile' => ['required', 'starts_with:09', 'digits:11']
+        ];
+    }
 
     public function send_otp(): void
     {
@@ -22,27 +38,50 @@ new #[Layout('components.layouts.auth')] class extends Component {
         if ($mobile_count) {
             $mobile = Mobile::where('mobile_nu', $this->mobile_nu)->first();
             $this->smsRemainingTime = time() - $mobile['otp_sent_time'];
-        }
-        else {
+        } else {
             $mobile = new Mobile();
             $mobile ['mobile_nu'] = $this->mobile_nu;
             $mobile ['created'] = j_d_stamp_en();
         }
-        if (!RateLimiter::tooManyAttempts($key, 10) and $this->smsRemainingTime >= 120 ) {
+
+        if (RateLimiter::tooManyAttempts($key, 10)) {
+            $this->ipRemainingTime = RateLimiter::availableIn($key);
+            return;
+        }
+        if ($this->smsRemainingTime >= 120) {
             RateLimiter::hit($key, 86400);
             $otp = NumericOTP(6);
             /* Otp Send Function */
             $mobile ['otp'] = $otp;
             $mobile ['otp_sent_time'] = time();
             $this->smsRemainingTime = 0;
-        } else {
-            $this->ipRemainingTime = RateLimiter::availableIn($key);
-            return;
         }
         $mobile ['request_ip'] = $ip;
         $mobile ['updated'] = j_d_stamp_en();
         $mobile->save();
         $this->modal('check_otp')->show();
+    }
+
+    public function check_otp()
+    {
+        $mobile = Mobile::where('mobile_nu', $this->mobile_nu)->first();
+        if ($mobile ['otp'] != $this->u_otp) {
+            $incorrect_otp_err = 'asdasdasd';
+            return;
+        }
+        if (time() - $mobile ['otp_sent_time'] <= 120) {
+            $otp_time_validation_error = 'asdasdasd';
+            return;
+        }
+
+        $user
+
+//        event(new Registered(($user = User::create($validated))));
+
+//        Auth::login($user);
+
+//        $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
+
     }
 
 }; ?>
@@ -88,15 +127,17 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <flux:modal name="check_otp" class="md:w-96">
         <div class="space-y-6">
             <div>
-                <flux:heading size="lg">Update profile</flux:heading>
-                <flux:text class="mt-2">Make changes to your personal details.</flux:text>
+                <flux:heading size="lg">{{__('تایید شماره موبایل')}}</flux:heading>
+                <flux:text class="mt-2">{{__('کد پیامک شده به ')}} {{$mobile_nu}} {{__(' را وارد نمایید.')}}</flux:text>
             </div>
-            <flux:input label="Name" placeholder="Your name"/>
-            <flux:input label="Date of birth" type="date"/>
-            <div class="flex">
-                <flux:spacer/>
-                <flux:button type="submit" variant="primary">Save changes</flux:button>
-            </div>
+            <form wire:submit="check_otp" class="flex flex-col gap-6">
+                <flux:input wire:model="u_otp" :label="__('کد پیامکی')" type="text" class:input="text-center"
+                            style="direction:ltr" maxlength="6" required autofocus/>
+                <div class="flex">
+                    <flux:spacer/>
+                    <flux:button type="submit" variant="primary">Save changes</flux:button>
+                </div>
+            </form>
         </div>
     </flux:modal>
 </div>

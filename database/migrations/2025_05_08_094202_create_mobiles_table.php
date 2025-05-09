@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('mobile_nu', 11)->unique();
             $table->string('otp', 10)->nullable();
             $table->string('otp_sent_time')->nullable();
+            $table->boolean('verified')->default(0);
             $table->string('request_ip', 15)->nullable();
             $table->string('created', 19)->nullable();
             $table->string('updated', 19)->nullable();
