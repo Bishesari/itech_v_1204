@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     public $timestamps = false;
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
     protected $hidden = [
         'password',
         'remember_token',

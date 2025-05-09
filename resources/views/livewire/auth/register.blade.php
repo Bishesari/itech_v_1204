@@ -78,6 +78,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             $otp_time_validation_error = 'asdasdasd';
             return;
         }
+        $this->modal('check_otp')->close();
 
         RateLimiter::clear('ip_limit:' . Request::ip());
         $mobile ['verified'] = 1;
@@ -113,9 +114,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')"/>
-
-    <div>{{$smsRemainingTime}}</div>
-
     <form wire:submit="send_otp" class="flex flex-col gap-6">
 
         <!-- First Name -->
