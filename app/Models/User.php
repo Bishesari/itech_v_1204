@@ -14,6 +14,7 @@ class User extends Authenticatable
 {
     public $timestamps = false;
     use HasFactory, Notifiable, HasRoles;
+
     protected $hidden = [
         'password',
         'remember_token',
