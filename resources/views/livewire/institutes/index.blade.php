@@ -6,12 +6,12 @@ use Livewire\Volt\Component;
 
 new class extends Component {
     public Collection $institutes;
-    public function mount()
+    public function mount(): void
     {
         $this->get_institutes();
     }
 
-    public function get_institutes()
+    public function get_institutes(): void
     {
         $this->institutes = Institute::all();
     }
