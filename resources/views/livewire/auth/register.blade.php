@@ -21,6 +21,9 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public int $ipRemainingTime = 0;
     public int $smsRemainingTime = 120;
 
+
+    public int $sd = 0;
+
     protected function rules(): array
     {
         return [
@@ -35,7 +38,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     {
         $this->validate();
         $ip = Request::ip();
-        $key = 'reg_ip_limit_' . $ip;
+        $key = 'ip_limit:' . $ip;
         $mobile_count = Mobile::where('mobile_nu', $this->mobile_nu)->count();
         if ($mobile_count) {
             $mobile = Mobile::where('mobile_nu', $this->mobile_nu)->first();
@@ -75,11 +78,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
             $otp_time_validation_error = 'asdasdasd';
             return;
         }
-        $this->modal('check_otp')->close();
-        RateLimiter::clear('reg_ip_limit_' . Request::ip());
 
-
-        $mobile ['otp'] = null;
+        RateLimiter::clear('ip_limit:' . Request::ip());
         $mobile ['verified'] = 1;
         $mobile ['updated'] = j_d_stamp_en();
         $mobile->save();
@@ -103,8 +103,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $profile->save();
 
         $user->mobiles()->attach($mobile['id'], ['created' => j_d_stamp_en()]);
-        $user->assignRole('NewComer');
-
         Auth::login($user);
         $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
     }
@@ -115,6 +113,9 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')"/>
+
+    <div>{{$smsRemainingTime}}</div>
+
     <form wire:submit="send_otp" class="flex flex-col gap-6">
 
         <!-- First Name -->
@@ -132,15 +133,15 @@ new #[Layout('components.layouts.auth')] class extends Component {
                     style="direction:ltr" maxlength="11" required/>
 
         <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full cursor-pointer">
-                {{ __('ایجاد حساب') }}
+            <flux:button type="submit" variant="primary" class="w-full">
+                {{ __('Create account') }}
             </flux:button>
         </div>
     </form>
 
     <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-        {{ __('قبلا ثبت نام کرده اید؟') }}
-        <flux:link :href="route('login')" wire:navigate>{{ __('وارد شوید') }}</flux:link>
+        {{ __('Already have an account?') }}
+        <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
     </div>
 
 
@@ -156,7 +157,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                             style="direction:ltr" maxlength="6" required autofocus/>
                 <div class="flex">
                     <flux:spacer/>
-                    <flux:button type="submit" variant="primary" class="cursor-pointer">{{__('ثبت نام')}}</flux:button>
+                    <flux:button type="submit" variant="primary">Save changes</flux:button>
                 </div>
             </form>
         </div>
