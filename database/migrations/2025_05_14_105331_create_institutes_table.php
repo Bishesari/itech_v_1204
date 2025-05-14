@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('short_name',25);
+            $table->string('full_name',80);
+            $table->char('abb',3);
+            $table->integer('remain_credit')->default(0);
+            $table->string('logo_url',200)->nullable();
+            $table->char('created', 19)->nullable();
+            $table->char('updated', 19)->nullable();
         });
     }
 
