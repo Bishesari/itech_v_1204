@@ -19,4 +19,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+
+
+Volt::route('institutes', 'institutes.index')->name('institutes.index');
 require __DIR__.'/auth.php';
