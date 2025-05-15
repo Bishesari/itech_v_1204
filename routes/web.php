@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::redirect('institutes', 'institutes/index');
+Route::redirect('institutes', 'institutes/index')->name('institutes');
 
 Volt::route('institutes/index', 'institutes.index')->name('institutes.index');
 require __DIR__.'/auth.php';

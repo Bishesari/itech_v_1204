@@ -1,5 +1,5 @@
 <div class="flex items-start max-md:flex-col">
-    <div class="me-10 w-full pb-4 md:w-[220px] ">
+    <div class="me-10 w-full pb-4 md:w-[200px] ">
         <flux:navlist>
             <flux:navlist.item :href="route('settings.profile')" wire:navigate>{{ __('Index') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.password')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
@@ -8,12 +8,16 @@
     </div>
 
     <flux:separator class="md:hidden" />
-
-    <div class="flex-1 self-stretch max-md:pt-6">
+    <div class="flex-1 self-stretch max-md:pt-6 text-center w-full md:w-[calc(100%-200px)]">
         <flux:heading>{{ $heading ?? '' }}</flux:heading>
         <flux:subheading>{{ $subheading ?? '' }}</flux:subheading>
 
-        <div class="mt-5 w-full">
+        <div class="bg-gray-100 mx-auto py-3 max-w-[870px] relative">
+            <p class="font-semibold text-center">{{__('لیست آموزشگاهها')}}</p>
+            <livewire:institutes.create />
+        </div>
+
+        <div class="mt-1 overflow-x-auto">
             {{ $slot }}
         </div>
     </div>

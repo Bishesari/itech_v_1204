@@ -146,7 +146,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
 
     <!--------- Mobile Verification Modal --------->
-    <flux:modal name="check_otp" class="md:w-96">
+    <flux:modal name="check_otp" class="md:w-96" :show="$errors->isNotEmpty()" focusable :dismissible="false">
         <div class="space-y-6">
             <div>
                 <flux:heading size="lg">{{__('تایید شماره موبایل')}}</flux:heading>

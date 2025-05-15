@@ -12,8 +12,12 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('سکوی توسعه')" class="grid">
+                <flux:navlist.group :heading="__('سکوی توسعه')" class="grid" expandable :expanded="false" >
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('داشبرد') }}</flux:navlist.item>
+                </flux:navlist.group>
+
+                <flux:navlist.group :heading="__('اطلاعات پایه')" class="grid" expandable :expanded="false" >
+                    <flux:navlist.item icon="building-library" :href="route('institutes.index')" :current="request()->routeIs('institutes.index')" wire:navigate>{{ __('آموزشگاهها') }}</flux:navlist.item>
                 </flux:navlist.group>
 
             </flux:navlist>
