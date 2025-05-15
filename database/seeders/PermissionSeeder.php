@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mobile;
+use App\Models\Profile;
 use http\Client\Curl\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,6 +24,21 @@ class PermissionSeeder extends Seeder
         $sar = Role::create(['name' => 'Super-Admin']);
         $sau = \App\Models\User::factory()->create(['user_name' => 'YasserSa', 'password' => '123456789']);
         $sau -> assignRole($sar);
+
+        $profile = new Profile();
+        $profile ['n_code'] = 2063531218;
+        $profile ['f_name_fa'] = 'یاسر';
+        $profile ['l_name_fa'] = 'بیشه سری';
+        $profile ['created'] = j_d_stamp_en();
+        $profile->user()->associate($sau);
+        $profile->save();
+
+        $mobile = new Mobile();
+        $mobile ['mobile_nu'] = '09177755924';
+        $mobile ['verified'] = 1;
+        $mobile ['created'] = j_d_stamp_en();
+        $mobile->save();
+        $sau->mobiles()->attach($mobile['id'], ['created' => j_d_stamp_en()]);
 
 
         Role::create(['name' => 'Admin']);
