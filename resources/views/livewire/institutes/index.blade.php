@@ -21,9 +21,12 @@ new class extends Component {
 }; ?>
 
 <section class="w-full">
-    @include('livewire.institutes.heading')
-    <x-institutes.layout>
-        <table class="text-xs sm:text-sm mx-auto sm:w-[870px] w-[700px]">
+    <div class="bg-gray-100 mx-auto py-3 max-w-[970px] relative">
+        <p class="font-semibold text-center">{{__('لیست آموزشگاهها')}}</p>
+        <livewire:institutes.create />
+    </div>
+    <div class="overflow-x-auto mt-1">
+        <table class="text-xs sm:text-sm text-center mx-auto sm:w-[970px] w-[780px]">
             <tr class="h-10 bg-slate-100 dark:text-slate-300 dark:bg-slate-900 ">
                 <th class="font-semibold border dark:border-slate-600 w-[40px]">{{__('#')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('نام کوتاه')}}</th>
@@ -33,6 +36,7 @@ new class extends Component {
                 <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('لوگو')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('تاریخ درج')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('تاریخ ویرایش')}}</th>
+                <th class="border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('عملیات')}}</th>
             </tr>
             @foreach($institutes as $institute)
                 <tr class="h-12 dark:text-slate-300 dark:bg-slate-800">
@@ -48,8 +52,11 @@ new class extends Component {
                         {{substr($institute['created'], 11, 5)}}
                     </td>
                     <td class="border dark:border-slate-600">{{$institute->updated}}</td>
+                    <td class="border dark:border-slate-600">
+                        <a href="{{route('institute.classrooms.index', ['id' => $institute->id])}}">{{__('کارگاهها')}}</a>
+                    </td>
                 </tr>
             @endforeach
         </table>
-    </x-institutes.layout>
+    </div>
 </section>

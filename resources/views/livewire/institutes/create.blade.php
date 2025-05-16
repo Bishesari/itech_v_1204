@@ -30,7 +30,7 @@ new class extends Component {
         </flux:button>
     </flux:modal.trigger>
 
-    <flux:modal name="create_institute" :show="$errors->isNotEmpty()" focusable class="md:w-96" :dismissible="false">
+    <flux:modal name="create_institute" :show="$errors->isNotEmpty()" focusable class="w-80 md:w-96" :dismissible="false">
         <form wire:submit="create_institute" class="flex flex-col gap-6">
             <div>
                 <flux:heading size="lg">{{ __('درج آموزشگاه جدید') }}</flux:heading>
