@@ -114,7 +114,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')"/>
 
-    <form wire:submit="send_otp" class="flex flex-col gap-6">
+    <form wire:submit="send_otp" class="flex flex-col gap-6" autocomplete="off">
 
         <!-- First Name -->
         <flux:input wire:model="f_name_fa" :label="__('نام')" type="text" required autofocus class:input="text-center"/>
@@ -150,7 +150,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 <flux:heading size="lg">{{__('تایید شماره موبایل')}}</flux:heading>
                 <flux:text class="mt-2">{{__('کد پیامک شده به ')}} {{$mobile_nu}} {{__(' را وارد نمایید.')}}</flux:text>
             </div>
-            <form wire:submit="register" class="flex flex-col gap-6">
+            <form wire:submit="register" class="flex flex-col gap-6" autocomplete="off">
                 <flux:input wire:model="u_otp" :label="__('کد پیامکی')" type="text" class:input="text-center"
                             style="direction:ltr" maxlength="6" required autofocus/>
                 <div class="flex">

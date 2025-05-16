@@ -21,15 +21,15 @@ new class extends Component {
 }; ?>
 
 <section class="w-full">
-    <div class="bg-gray-100 mx-auto py-3 max-w-[970px] relative">
+    <div class="bg-gray-100 mx-auto py-3 max-w-[990px] relative">
         <p class="font-semibold text-center">{{__('لیست آموزشگاهها')}}</p>
         <livewire:institutes.create />
     </div>
     <div class="overflow-x-auto mt-1">
-        <table class="text-xs sm:text-sm text-center mx-auto sm:w-[970px] w-[780px]">
+        <table class="text-xs sm:text-sm text-center mx-auto sm:w-[990px] w-[800px]">
             <tr class="h-10 bg-slate-100 dark:text-slate-300 dark:bg-slate-900 ">
                 <th class="font-semibold border dark:border-slate-600 w-[40px]">{{__('#')}}</th>
-                <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('نام کوتاه')}}</th>
+                <th class="font-semibold border dark:border-slate-600 sm:w-[120px] w-[100px]">{{__('نام کوتاه')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[250px] w-[200px]">{{__('نام کامل')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[90px] w-[70px]">{{__('نام اختصاری')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[90px] w-[70px]">{{__('مانده اعتبار')}}</th>

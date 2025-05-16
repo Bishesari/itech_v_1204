@@ -9,6 +9,7 @@ class Classroom extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['institute_id', 'name', 'capacity', 'created'];
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);
