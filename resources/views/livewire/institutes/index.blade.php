@@ -21,7 +21,7 @@ new class extends Component {
 }; ?>
 
 <section class="w-full">
-    <div class="bg-gray-100 mx-auto py-3 max-w-[990px] relative">
+    <div class="bg-gray-100  dark:bg-slate-800  mx-auto py-3 max-w-[990px] relative">
         <p class="font-semibold text-center">{{__('لیست آموزشگاهها')}}</p>
         <livewire:institutes.create />
     </div>

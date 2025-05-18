@@ -11,12 +11,13 @@
                 <x-app-logo />
             </a>
 
+
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('سکوی توسعه')" class="grid" expandable :expanded="false" >
+                <flux:navlist.group :heading="__('سکوی توسعه')" class="grid" expandable :expanded="request()->routeIs(['dashboard'])" >
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('داشبرد') }}</flux:navlist.item>
                 </flux:navlist.group>
 
-                <flux:navlist.group :heading="__('اطلاعات پایه')" class="grid" expandable :expanded="false" >
+                <flux:navlist.group :heading="__('اطلاعات پایه')" class="grid" expandable :expanded="request()->routeIs(['institutes.index'])" >
                     <flux:navlist.item icon="building-library" :href="route('institutes.index')" :current="request()->routeIs('institutes.index')" wire:navigate>{{ __('آموزشگاهها') }}</flux:navlist.item>
                 </flux:navlist.group>
 
@@ -25,13 +26,10 @@
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
+                <flux:navlist.item icon="cog-6-tooth" href="{{Route('settings.profile')}}" >
+                {{ __('تنظیمات') }}
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
             </flux:navlist>
 
             <!-- Desktop User Menu -->
@@ -65,7 +63,7 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('تنظیمات') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
@@ -116,7 +114,7 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('تنظیمات') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
