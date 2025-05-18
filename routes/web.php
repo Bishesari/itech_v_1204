@@ -23,4 +23,5 @@ Route::middleware(['auth'])->group(function () {
 Volt::route('institutes', 'institutes.index')->name('institutes.index');
 Volt::route('institute/{id}/classrooms', 'institutes.classrooms.index')->name('institute.classrooms.index');
 
+Volt::route('tst', 'ttsstt')->name('test_route');
 require __DIR__.'/auth.php';
