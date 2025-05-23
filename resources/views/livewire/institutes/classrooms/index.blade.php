@@ -24,17 +24,17 @@ new class extends Component {
 
 
 <section class="w-full">
-    <div class="bg-gray-100 mx-auto py-3 max-w-[990px] relative">
+    <div class="bg-gray-100 mx-auto py-3 max-w-[660px] relative">
         <p class="font-semibold text-center">{{__('لیست کارگاههای آموزشگاه')}} <b>{{$institute->short_name}}</b></p>
         <livewire:institutes.classrooms.create :id="$id"/>
     </div>
     <div class="overflow-x-auto mt-1">
-        <table class="text-xs sm:text-sm text-center mx-auto sm:w-[990px] w-[800px]">
+        <table class="text-xs sm:text-sm text-center mx-auto sm:w-[660px] w-[540px]">
             <tr class="h-10 bg-slate-100 dark:text-slate-300 dark:bg-slate-900 ">
                 <th class="font-semibold border dark:border-slate-600 w-[40px]">{{__('#')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[120px] w-[100px]">{{__('نام کارگاه')}}</th>
-                <th class="font-semibold border dark:border-slate-600 sm:w-[250px] w-[200px]">{{__('ظرفیت')}}</th>
-                <th class="font-semibold border dark:border-slate-600 sm:w-[90px] w-[70px]">{{__('کارگاه فعال؟')}}</th>
+                <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('ظرفیت')}}</th>
+                <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('کارگاه فعال؟')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('تاریخ درج')}}</th>
                 <th class="font-semibold border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('تاریخ ویرایش')}}</th>
                 <th class="border dark:border-slate-600 sm:w-[100px] w-[80px]">{{__('عملیات')}}</th>
