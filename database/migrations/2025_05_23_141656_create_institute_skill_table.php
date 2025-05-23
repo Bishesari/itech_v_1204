@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mobile_user', function (Blueprint $table) {
+        Schema::create('institute_skill', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('mobile_id')->constrained()->onDelete('cascade');
+            $table->foreignId('skill_id')->constrained()->onDelete('cascade');
+            $table->foreignId('institute_id')->constrained()->onDelete('cascade');
             $table->char('created', 19);
             $table->char('updated', 19)->nullable();
 
-            $table->unique(['user_id', 'mobile_id']);
+            $table->unique(['skill_id', 'institute_id']);
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mobile_user');
+        Schema::dropIfExists('institute_skill');
     }
 };
