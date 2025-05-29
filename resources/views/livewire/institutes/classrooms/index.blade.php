@@ -12,11 +12,11 @@ new class extends Component {
 
     public function mount()
     {
-        $this->get_institute();
+        $this->getInstitute();
     }
 
     #[On('classroom-created')]
-    public function get_institute(): void
+    public function getInstitute(): void
     {
         $this->institute = Institute::find($this->id);
     }
@@ -39,22 +39,22 @@ new class extends Component {
                 <th class="font-semibold border dark:border-zinc-600 sm:w-[100px] w-[80px]">{{__('تاریخ ویرایش')}}</th>
                 <th class="border dark:border-zinc-600 sm:w-[100px] w-[80px]">{{__('عملیات')}}</th>
             </tr>
-            @foreach($institute->classrooms as $classroom)
+            @foreach($institute->classrooms as $row)
                 <tr class="h-12 dark:text-zinc-300">
-                    <td class="border dark:border-zinc-600">{{$classroom->id}}</td>
-                    <td class="border dark:border-zinc-600">{{$classroom->name}}</td>
-                    <td class="border dark:border-zinc-600">{{$classroom->capacity}}</td>
-                    <td class="border dark:border-zinc-600">{{$classroom->active}}</td>
+                    <td class="border dark:border-zinc-600">{{$row->id}}</td>
+                    <td class="border dark:border-zinc-600">{{$row->name}}</td>
+                    <td class="border dark:border-zinc-600">{{$row->capacity}}</td>
+                    <td class="border dark:border-zinc-600">{{$row->active}}</td>
                     <td class="border dark:border-zinc-600">
-                        {{substr($classroom -> created, 0, 10)}}
+                        {{substr($row -> created, 0, 10)}}
                         <hr class="dark:border-zinc-600">
-                        {{substr($classroom -> created, 11, 5)}}
+                        {{substr($row -> created, 11, 5)}}
                     </td>
 
                     <td class="border dark:border-zinc-600">
-                        {{substr($classroom -> updated, 0, 10)}}
+                        {{substr($row -> updated, 0, 10)}}
                         <hr class="dark:border-zinc-600">
-                        {{substr($classroom -> updated, 11, 5)}}
+                        {{substr($row -> updated, 11, 5)}}
                     </td>
                     <td class="border dark:border-zinc-600">
                         <a href="{{route('institute.classrooms.index', ['id' => $institute->id])}}">{{__('کارگاهها')}}</a>
