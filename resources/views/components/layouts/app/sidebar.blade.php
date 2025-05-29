@@ -16,9 +16,9 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('داشبرد') }}</flux:navlist.item>
                 </flux:navlist.group>
 
-                <flux:navlist.group :heading="__('اطلاعات پایه')" class="grid" expandable :expanded="request()->routeIs(['institutes.index', 'test_route'])" >
+                <flux:navlist.group :heading="__('اطلاعات پایه')" class="grid" expandable :expanded="request()->routeIs(['institutes.index', 'fields.index'])" >
                     <flux:navlist.item icon="building-library" :href="route('institutes.index')" :current="request()->routeIs('institutes.index')" wire:navigate>{{ __('آموزشگاهها') }}</flux:navlist.item>
-                    <flux:navlist.item icon="building-library" :href="route('test_route')" :current="request()->routeIs('test_route')" wire:navigate>{{ __('تست روت') }}</flux:navlist.item>
+                    <flux:navlist.item icon="building-library" :href="route('fields.index')" :current="request()->routeIs('fields.index')" wire:navigate>{{ __('رشته های آموزشی') }}</flux:navlist.item>
                 </flux:navlist.group>
 
             </flux:navlist>
