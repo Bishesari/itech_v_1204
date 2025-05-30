@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mobile_user', function (Blueprint $table) {
+        Schema::create('institute_role_user', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('institute_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('mobile_id')->constrained()->cascadeOnDelete();
-            $table->char('created', 19);
-            $table->char('updated', 19)->nullable();
-
-            $table->unique(['user_id', 'mobile_id']);
+            $table->unique(['institute_id', 'role_id', 'user_id']); // جلوگیری از اختصاص نقش تکراری
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mobile_user');
+        Schema::dropIfExists('institute_role_user');
     }
 };

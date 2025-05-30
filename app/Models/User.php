@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     public $timestamps = false;
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable;
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
     protected function casts(): array
     {
         return [
@@ -26,11 +26,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function initials(): string
     {
-        return Str::of($this->profile->f_name_fa.'، '.$this->profile->l_name_fa)
+        return Str::of($this->profile->f_name_fa . '، ' . $this->profile->l_name_fa)
             ->explode('، ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+            ->map(fn(string $name) => Str::of($name)->substr(0, 1))
             ->implode(' ');
     }
 
@@ -43,4 +44,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Mobile::class);
     }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'institute_role_user')->withPivot('institute_id');
+    }
+    public function institutes(): BelongsToMany
+    {
+        return $this->belongsToMany(Institute::class, 'institute_role_user')->withPivot('role_id');
+    }
+
 }
