@@ -88,7 +88,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <!-- Password -->
         <div class="relative">
             <flux:input wire:model="password" :label="__('کلمه عبور')" type="password" class:input="text-center"
-                        required viewable />
+                        style="direction:ltr" required viewable />
 
             @if (Route::has('password.request'))
                 <flux:link class="absolute end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>
