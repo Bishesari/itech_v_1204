@@ -20,11 +20,12 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+Volt::route('roles', 'roles.index')->name('roles.index')->middleware('auth');
 
-Volt::route('institutes', 'institutes.index')->name('institutes.index');
-Volt::route('institute/{id}/classrooms', 'institutes.classrooms.index')->name('institute.classrooms.index');
+Volt::route('institutes', 'institutes.index')->name('institutes.index')->middleware('auth');
+Volt::route('institute/{id}/classrooms', 'institutes.classrooms.index')->name('institute.classrooms.index')->middleware('auth');
 
-Volt::route('fields', 'fields.index')->name('fields.index');
-Volt::route('skills', 'skills.index')->name('skills.index');
+Volt::route('fields', 'fields.index')->name('fields.index')->middleware('auth');
+Volt::route('skills', 'skills.index')->name('skills.index')->middleware('auth');
 
 require __DIR__.'/auth.php';

@@ -16,7 +16,8 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('داشبرد') }}</flux:navlist.item>
                 </flux:navlist.group>
 
-                <flux:navlist.group :heading="__('اطلاعات پایه')" class="grid" expandable :expanded="request()->routeIs(['institutes.index', 'fields.index', 'skills.index'])" >
+                <flux:navlist.group :heading="__('اطلاعات پایه')" class="grid" expandable :expanded="request()->routeIs(['roles.index', 'institutes.index', 'fields.index', 'skills.index'])" >
+                    <flux:navlist.item icon="building-library" :href="route('roles.index')" :current="request()->routeIs('roles.index')" wire:navigate>{{ __('نقشهای کاربری') }}</flux:navlist.item>
                     <flux:navlist.item icon="building-library" :href="route('institutes.index')" :current="request()->routeIs('institutes.index')" wire:navigate>{{ __('آموزشگاهها') }}</flux:navlist.item>
                     <flux:navlist.item icon="building-library" :href="route('fields.index')" :current="request()->routeIs('fields.index')" wire:navigate>{{ __('رشته های آموزشی') }}</flux:navlist.item>
                     <flux:navlist.item icon="building-library" :href="route('skills.index')" :current="request()->routeIs('skills.index')" wire:navigate>{{ __('حرفه های آموزشی') }}</flux:navlist.item>
