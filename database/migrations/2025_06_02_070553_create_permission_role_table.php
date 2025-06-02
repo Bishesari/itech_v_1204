@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('institute_skill', function (Blueprint $table) {
+        Schema::create('permission_role', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('skill_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('institute_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('permission_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
             $table->char('created', 19);
             $table->char('updated', 19)->nullable();
 
-            $table->unique(['skill_id', 'institute_id']);
+            $table->unique(['permission_id', 'role_id']);
+
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('institute_skill');
+        Schema::dropIfExists('permission_role');
     }
 };
