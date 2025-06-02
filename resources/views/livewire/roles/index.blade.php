@@ -22,16 +22,16 @@ new class extends Component {
 }; ?>
 
 <section class="w-full">
-    <div class="bg-zinc-200 dark:bg-zinc-600 dark:text-zinc-300 mx-auto py-3 max-w-[990px] relative">
+    <div class="bg-zinc-200 dark:bg-zinc-600 dark:text-zinc-300 mx-auto py-3 max-w-[620px] relative">
         <p class="font-semibold text-center">{{__('لیست نقشهای کاربری')}}</p>
 {{--        <livewire:institutes.create />--}}
     </div>
     <div class="overflow-x-auto mt-1">
-        <table class="text-xs sm:text-sm text-center mx-auto sm:w-[990px] w-[800px]">
+        <table class="text-xs sm:text-sm text-center mx-auto sm:w-[620px] w-[520px]">
             <tr class="h-10 bg-zinc-100 dark:bg-zinc-700 dark:text-zinc-400 ">
                 <th class="font-semibold border dark:border-zinc-600 w-[40px]">{{__('#')}}</th>
-                <th class="font-semibold border dark:border-zinc-600 sm:w-[120px] w-[100px]">{{__('نام لاتین')}}</th>
-                <th class="font-semibold border dark:border-zinc-600 sm:w-[250px] w-[200px]">{{__('نام فارسی')}}</th>
+                <th class="font-semibold border dark:border-zinc-600 sm:w-[140px] w-[120px]">{{__('نام لاتین')}}</th>
+                <th class="font-semibold border dark:border-zinc-600 sm:w-[140px] w-[120px]">{{__('نام فارسی')}}</th>
                 <th class="font-semibold border dark:border-zinc-600 sm:w-[100px] w-[80px]">{{__('تاریخ درج')}}</th>
                 <th class="font-semibold border dark:border-zinc-600 sm:w-[100px] w-[80px]">{{__('تاریخ ویرایش')}}</th>
                 <th class="border dark:border-zinc-600 sm:w-[100px] w-[80px]">{{__('عملیات')}}</th>
@@ -48,7 +48,7 @@ new class extends Component {
                     </td>
                     <td class="border dark:border-zinc-600">{{$row->updated}}</td>
                     <td class="border dark:border-zinc-600">
-                        <a href="{{route('institute.classrooms.index', ['id' => $row->id])}}">{{__('کارگاهها')}}</a>
+{{--                        <a href="{{route('institute.classrooms.index', ['id' => $row->id])}}">{{__('کارگاهها')}}</a>--}}
                     </td>
                 </tr>
             @endforeach
